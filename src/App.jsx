@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect } from "react";
+import useFetch from "./hooks/useFetch";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getData,
+  addProduct,
+  removeProduct,
+} from "./features/product/productSlice";
+import Layout from "./utils/Layout";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const { loading, data } = useFetch();
+  const storeData = useSelector((state) => state.product.data);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {}, []);
+
+  // useEffect(() => {
+  //   // console.log(data);
+  //   const newProduct = data;
+  //   dispatch(getData(newProduct));
+  // }, [loading]);
+
+  // useEffect(() => {
+  //   console.log(storeData);
+  // }, [storeData]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="min-h-screen bg-[#1c1c1c]">
+      <Header />
+      <Layout />
+      <Footer />
+    </div>
+  );
+};
 
-export default App
+export default App;
