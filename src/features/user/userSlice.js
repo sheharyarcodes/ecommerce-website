@@ -8,20 +8,34 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    getItems: (state, actions) => {
-      state.cartItems = actions.payload;
-    },
     addItem: (state, actions) => {
-      state.cartItems.push(actions.payload);
+      const newItem = actions.payload;
+      const productIdExists = state.cartItems.some(
+        (item) => item.productId === newItem.productId
+      );
+      const existingItemIndex = state.cartItems.findIndex(
+        (item) => item.productId === newItem.productId
+      );
+      if (!productIdExists) state.cartItems.push(newItem);
+      else
+        state.cartItems[existingItemIndex].quantity =
+          parseInt(state.cartItems[existingItemIndex].quantity) +
+          parseInt(newItem.quantity);
     },
+
     removeItem: (state, actions) => {
       state.cartItems = state.cartItems.filter(
-        (item) => item.id !== actions.payload
+        (item) => item.productId !== actions.payload
       );
+    },
+
+    getQuantity: (state) => {
+      const quantity = 3;
+      if (quantity) return quantity;
     },
   },
 });
 
-export const { getItems, addItem, removeItem } = userSlice.actions;
+export const { addItem, removeItem, getQuantity } = userSlice.actions;
 
 export default userSlice.reducer;

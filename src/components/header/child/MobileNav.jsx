@@ -14,7 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 
-const MobileNav = () => {
+const MobileNav = ({ distinctCategory }) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -43,35 +43,15 @@ const MobileNav = () => {
               <ChevronDownIcon className="ml-2 h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <Link to="/products/category/men-clothing">
-                {" "}
-                <SheetClose asChild>
-                  <DropdownMenuItem className="cursor-pointer">
-                    Men
-                  </DropdownMenuItem>
-                </SheetClose>
-              </Link>
-              <Link to="/products/category/women-clothing">
-                <SheetClose asChild>
-                  <DropdownMenuItem className="cursor-pointer">
-                    Women
-                  </DropdownMenuItem>
-                </SheetClose>
-              </Link>
-              <Link to="/products/category/jewelry">
-                <SheetClose asChild>
-                  <DropdownMenuItem className="cursor-pointer">
-                    Jewelry
-                  </DropdownMenuItem>
-                </SheetClose>
-              </Link>
-              <Link to="/products/category/electronics">
-                <SheetClose asChild>
-                  <DropdownMenuItem className="cursor-pointer">
-                    Electronics
-                  </DropdownMenuItem>
-                </SheetClose>
-              </Link>
+              {distinctCategory.map((item) => (
+                <Link key={item} to={`/products/category/${item}`}>
+                  <SheetClose asChild>
+                    <DropdownMenuItem className="cursor-pointer capitalize">
+                      {item}
+                    </DropdownMenuItem>
+                  </SheetClose>
+                </Link>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>

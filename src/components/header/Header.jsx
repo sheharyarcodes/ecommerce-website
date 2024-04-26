@@ -10,14 +10,27 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import MobileNav from "./child/MobileNav";
-
-MobileNav;
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getQuantity } from "@/features/user/userSlice";
 
 const Header = () => {
+  const [cartQuantity, setCartQuantity] = useState(0);
+  const products = useSelector((state) => state.product.data);
+  let distinctCategory =
+    products && products.reduce((acc, cv) => [...acc, cv.category], []);
+  distinctCategory = [...new Set(distinctCategory)];
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const { newQuantity } = dispatch(getQuantity());
+    setCartQuantity(newQuantity);
+  }, [getQuantity]);
+
   return (
     <header className="bg-white w-full">
       <div className="container px-4 h-20 md:px-6 flex  justify-between gap-2 items-center">
-        <MobileNav />
+        <MobileNav distinctCategory={distinctCategory} />
 
         <div className="w-[150px] hidden lg:flex gap-8">
           <Link className="flex items-center gap-2 select-none" to="#">
@@ -38,26 +51,13 @@ const Header = () => {
                 <ChevronDownIcon className="ml-2 h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
-                <Link to="/products/category/men-clothing">
-                  <DropdownMenuItem className="cursor-pointer">
-                    Men
-                  </DropdownMenuItem>
-                </Link>
-                <Link to="/products/category/women-clothing">
-                  <DropdownMenuItem className="cursor-pointer">
-                    Women
-                  </DropdownMenuItem>
-                </Link>
-                <Link to="/products/category/jewelry">
-                  <DropdownMenuItem className="cursor-pointer">
-                    Jewelry
-                  </DropdownMenuItem>
-                </Link>
-                <Link to="/products/category/electronics">
-                  <DropdownMenuItem className="cursor-pointer">
-                    Electronics
-                  </DropdownMenuItem>
-                </Link>
+                {distinctCategory.map((item) => (
+                  <Link key={item} to={`/products/category/${item}`}>
+                    <DropdownMenuItem className="cursor-pointer capitalize">
+                      {item}
+                    </DropdownMenuItem>
+                  </Link>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>
@@ -78,10 +78,10 @@ const Header = () => {
           />
         </div>
 
-        <Link to="user/cart">
+        <Link to={`/${"user123"}/cart`}>
           <Button className="relative" size="icon" variant="ghost">
             <Badge className="absolute flex items-center overflow-hidden justify-center top-0 right-0 p-2 w-2 h-2 rounded-full bg-red-500 text-[10px] text-white">
-              2
+              {cartQuantity}
             </Badge>
             <ShoppingCartIcon className="h-6 w-6" />
           </Button>

@@ -14,8 +14,8 @@ const Card = ({ item }) => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <span className="bg-gray-200 w-fit rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mb-2">
-            {item.category.toUpperCase()}
+          <span className="bg-gray-200 w-fit rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mb-2 capitalize">
+            {item.category}
           </span>
           <h2 className="text-lg font-semibold text-gray-800 truncate">
             {item.title}

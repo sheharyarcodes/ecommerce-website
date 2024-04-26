@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://fakestoreapi.com/products";
+const BASE_URL = "https://fakestoreapi.com";
 
 const fetchDataFromApi = async (url, params) => {
   try {

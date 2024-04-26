@@ -11,7 +11,7 @@ const Home = () => {
   }, [storeData]);
 
   return (
-    <div className="py-10 flex flex-wrap gap-6">
+    <div className="py-10 flex justify-center flex-wrap gap-6">
       {products ? (
         products?.map((item) => <Card key={item.id} item={item} />)
       ) : (
