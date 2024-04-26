@@ -5,7 +5,7 @@ export default function Component() {
   return (
     <footer className="w-full bg-white text-gray-800 py-8 px-4 md:px-6 lg:px-8">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 select-none cursor-pointer">
           <img className="w-8" src={logo} alt="" />
           <span className="text-black font-semibold text-lg">ShopIt</span>
         </div>

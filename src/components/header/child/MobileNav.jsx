@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
+import {
+  SheetTrigger,
+  SheetContent,
+  Sheet,
+  SheetClose,
+} from "@/components/ui/sheet";
 import {
   DropdownMenuTrigger,
   DropdownMenuItem,
@@ -19,32 +24,54 @@ const MobileNav = () => {
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
-        <Link className="flex items-center gap-2" to="#">
+        <Link className="flex items-center gap-2 select-none" to="#">
           <img className="w-4" src={logo} />
           <span className="font-semibold">ShopIt</span>
         </Link>
         <nav className="flex flex-col gap-4 py-6">
-          <Link
-            className="inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none"
-            to="#"
-          >
-            Home
-          </Link>
+          <SheetClose asChild>
+            <Link
+              className="inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none"
+              to="/"
+            >
+              Home
+            </Link>
+          </SheetClose>
           <DropdownMenu>
             <DropdownMenuTrigger className="inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none">
               Category
               <ChevronDownIcon className="ml-2 h-4 w-4" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start">
-              <DropdownMenuItem>
-                <Link to="#">Men</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="#">Women</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="#">Electronics</Link>
-              </DropdownMenuItem>
+              <Link to="/products/category/men-clothing">
+                {" "}
+                <SheetClose asChild>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Men
+                  </DropdownMenuItem>
+                </SheetClose>
+              </Link>
+              <Link to="/products/category/women-clothing">
+                <SheetClose asChild>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Women
+                  </DropdownMenuItem>
+                </SheetClose>
+              </Link>
+              <Link to="/products/category/jewelry">
+                <SheetClose asChild>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Jewelry
+                  </DropdownMenuItem>
+                </SheetClose>
+              </Link>
+              <Link to="/products/category/electronics">
+                <SheetClose asChild>
+                  <DropdownMenuItem className="cursor-pointer">
+                    Electronics
+                  </DropdownMenuItem>
+                </SheetClose>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>

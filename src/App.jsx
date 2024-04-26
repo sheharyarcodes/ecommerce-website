@@ -1,38 +1,36 @@
 import React, { useEffect } from "react";
 import useFetch from "./hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getData,
-  addProduct,
-  removeProduct,
-} from "./features/product/productSlice";
-import Layout from "./utils/Layout";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
+import { getData } from "./features/product/productSlice";
+import Layout from "./Layout";
+import { Footer, Header, Spinner } from "./components";
 
 const App = () => {
   const { loading, data } = useFetch();
-  const storeData = useSelector((state) => state.product.data);
   const dispatch = useDispatch();
+  const storeData = useSelector((state) => state.product.data);
 
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    // console.log(storeData);
+  }, [storeData]);
 
-  // useEffect(() => {
-  //   // console.log(data);
-  //   const newProduct = data;
-  //   dispatch(getData(newProduct));
-  // }, [loading]);
+  useEffect(() => {
+    if (data) {
+      const newProduct = data;
+      dispatch(getData(newProduct));
+    }
+  }, [data]);
 
-  // useEffect(() => {
-  //   console.log(storeData);
-  // }, [storeData]);
-
-  return (
-    <div className="min-h-screen bg-[#1c1c1c]">
+  return !loading ? (
+    <div className="min-h-screen bg-gray-50">
       <Header />
-      <Layout />
+      <main className="container">
+        <Layout />
+      </main>
       <Footer />
     </div>
+  ) : (
+    <Spinner />
   );
 };
 

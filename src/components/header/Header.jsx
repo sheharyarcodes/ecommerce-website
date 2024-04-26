@@ -20,7 +20,7 @@ const Header = () => {
         <MobileNav />
 
         <div className="w-[150px] hidden lg:flex gap-8">
-          <Link className="flex items-center gap-2" to="#">
+          <Link className="flex items-center gap-2 select-none" to="#">
             <img className="w-4" src={logo} />
             <span className="font-semibold">ShopIt</span>
           </Link>
@@ -28,7 +28,7 @@ const Header = () => {
           <nav className="hidden lg:flex items-center gap-4">
             <Link
               className="inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none"
-              to="#"
+              to="/"
             >
               Home
             </Link>
@@ -38,15 +38,26 @@ const Header = () => {
                 <ChevronDownIcon className="ml-2 h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
-                <DropdownMenuItem>
-                  <Link to="#">Men</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="#">Women</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link to="#">Electronics</Link>
-                </DropdownMenuItem>
+                <Link to="/products/category/men-clothing">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Men
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/products/category/women-clothing">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Women
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/products/category/jewelry">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Jewelry
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/products/category/electronics">
+                  <DropdownMenuItem className="cursor-pointer">
+                    Electronics
+                  </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>
@@ -67,12 +78,14 @@ const Header = () => {
           />
         </div>
 
-        <Button className="relative" size="icon" variant="ghost">
-          <Badge className="absolute flex items-center overflow-hidden justify-center top-0 right-0 p-2 w-2 h-2 rounded-full bg-red-500 text-[10px] text-white">
-            2
-          </Badge>
-          <ShoppingCartIcon className="h-6 w-6" />
-        </Button>
+        <Link to="user/cart">
+          <Button className="relative" size="icon" variant="ghost">
+            <Badge className="absolute flex items-center overflow-hidden justify-center top-0 right-0 p-2 w-2 h-2 rounded-full bg-red-500 text-[10px] text-white">
+              2
+            </Badge>
+            <ShoppingCartIcon className="h-6 w-6" />
+          </Button>
+        </Link>
       </div>
     </header>
   );
