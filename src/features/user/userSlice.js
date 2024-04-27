@@ -28,14 +28,9 @@ const userSlice = createSlice({
         (item) => item.productId !== actions.payload
       );
     },
-
-    getQuantity: (state) => {
-      const quantity = 3;
-      if (quantity) return quantity;
-    },
   },
 });
 
-export const { addItem, removeItem, getQuantity } = userSlice.actions;
+export const { addItem, removeItem } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import useFetch from "./hooks/useFetch";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { pushData } from "./features/product/productSlice";
 import Layout from "./Layout";
 import { Footer, Header, Spinner } from "./components";

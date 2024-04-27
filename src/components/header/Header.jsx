@@ -7,25 +7,37 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import MobileNav from "./child/MobileNav";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getQuantity } from "@/features/user/userSlice";
 
 const Header = () => {
   const [cartQuantity, setCartQuantity] = useState(0);
   const products = useSelector((state) => state.product.data);
+  const userCart = useSelector((state) => state.user.cartItems);
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
   let distinctCategory =
     products && products.reduce((acc, cv) => [...acc, cv.category], []);
   distinctCategory = [...new Set(distinctCategory)];
-  const dispatch = useDispatch();
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      navigate(`/search/${query}`);
+    } else {
+      setQuery(e.target.value);
+    }
+  };
 
   useEffect(() => {
-    const { newQuantity } = dispatch(getQuantity());
+    const newQuantity = userCart.reduce(
+      (acc, item) => acc + parseInt(item.quantity),
+      0
+    );
     setCartQuantity(newQuantity);
-  }, [getQuantity]);
+  }, [userCart]);
 
   return (
     <header className="bg-white w-full">
@@ -68,6 +80,7 @@ const Header = () => {
             className="absolute right-2 top-1/2 -translate-y-1/2 active:text-gray-400"
             size="icon"
             variant="ghost"
+            onClick={() => navigate(`/search/${query}`)}
           >
             <SearchIcon className="h-5 w-5" />
           </Button>
@@ -75,6 +88,9 @@ const Header = () => {
             className="pr-12 bg-gray-100"
             placeholder="Search any product..."
             type="text"
+            value={query}
+            onChange={handleSearch}
+            onKeyPress={handleSearch}
           />
         </div>
 

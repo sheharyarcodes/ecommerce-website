@@ -1,34 +1,18 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { removeItem } from "@/features/user/userSlice";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const userCart = useSelector((state) => state.user.cartItems);
   const dispatch = useDispatch();
 
-  // const products = [
-  //   {
-  //     productId: 14,
-  //     quantity: "4",
-  //     productTitle:
-  //       "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ",
-  //     productImg: "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg",
-  //   },
-  //   {
-  //     productId: 10,
-  //     quantity: 1,
-  //     productTitle: "SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s",
-  //     productImg: "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
-  //   },
-  //   {
-  //     productId: 2,
-  //     quantity: 1,
-  //     productTitle: "Mens Casual Premium Slim Fit T-Shirts ",
-  //     productImg:
-  //       "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
-  //   },
-  // ];
+  const notify = () =>
+    toast.success("Thanks for purchasing!", {
+      position: "bottom-right",
+      pauseOnHover: false,
+    });
 
   return (
     <div className="flex flex-col gap-4 items-center py-10">
@@ -56,7 +40,7 @@ const Cart = () => {
                       variant="outline"
                       onClick={() => {
                         dispatch(removeItem(item.productId));
-                        // show toast the item has been bought
+                        notify();
                       }}
                     >
                       Buy Now
